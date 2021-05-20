@@ -22,12 +22,17 @@ jobs:
       
       - name: Fetch real commit SHA
         env:
-         SHA_FROM_PR: ${{ github.event.pull_request.head.sha }}
+          SHA_FROM_PR: ${{ github.event.pull_request.head.sha }}
         run: |
-          echo "SHAD_FROM_PR is ${{ github.event.pull_request.head.sha }}"
-          echo "SHAD_FROM_PR is $SHA_FROM_PR"
-          echo "::set-output name=COMMIT_SHA::${{ github.event.pull_request.head.sha }}"
-        id: random-color-generator
+          if [ ${{ github.event_name }} = "pull_request" ]; then
+            echo "::set-output name=COMMIT_SHA::${{ github.event.pull_request.head.sha }}"
+          else 
+            echo "::set-output name=COMMIT_SHA::${{ github.sha }}"
+          fi
+        id: sha-resolver
+        
+      - name: Show SHA
+        run: echo "The real SHA is ${{ steps.sha-resolver.outputs.COMMIT_SHA }}"
       
       - name: Checkout code
         uses: actions/checkout@master
