@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: codacy-ci
+
+on:
+ push:
+    branches:
+      - main
+ pull_request:
+    branches:
+      - main
+
+jobs:
+ codacy-cli:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Run codacy-analysis-cli
+        uses: codacy/codacy-analysis-cli-action@master
+        with:
+          tool: ESLint
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          upload: true
