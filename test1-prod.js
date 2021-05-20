@@ -6,5 +6,5 @@ if(fooProd  === "bar") {
   
   console.log( 'sha from event' )
   
-  console.log( 'sha checking event name for real' )
+  console.log( 'sha checking event name for real with logs' )
 }
