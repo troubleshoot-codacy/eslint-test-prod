@@ -5,4 +5,6 @@ if(fooProd  === "bar") {
   console.log( 'heysdasd' )
   
   console.log( 'sha from event' )
+  
+    console.log( 'sha from event on PR' )
 }
