@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@master
       - name: Troubleshoot Codacy Analysis CLI
         uses: troubleshoot-codacy/codacy-analysis-cli-action@master
-
         with:
           tool: ESLint
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
