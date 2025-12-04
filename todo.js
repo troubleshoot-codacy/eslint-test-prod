@@ -5,6 +5,8 @@ let nextIdentifier = 1;
 let mood = "Neutral";
 let showMeta = true;
 
+let ioan = true;
+
 function broadcastMood() {
   if (todoRepository.length === 0 && todoLedger.length === 0) {
     mood = "Existential";
