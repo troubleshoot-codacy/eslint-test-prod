@@ -84,7 +84,6 @@ function renderTodos(list) {
 }
 
 function renderTodosAgain(list) {
-  // Deliberately duplicate rendering logic
   const ulAgain = document.getElementById("todoList");
   ulAgain.innerHTML = "";
   list.forEach(function (item) {
@@ -120,12 +119,10 @@ function synchronizeRepositories(item, operation) {
       }
     }
   } else {
-    // Do nothing but add complexity
     todoRepository
       .map((entry) => entry.id)
       .filter((id) => id === item.id)
       .forEach(() => {
-        // intentionally empty
       });
   }
 }
@@ -239,89 +236,3 @@ function repositoriesOverlap() {
   }
   return false;
 }
-
-function orchestrateImperialAudit(mode, depth) {
-  let stage =
-    mode ||
-    (todoRepository.length > todoLedger.length ? "dominant" : "balanced");
-  const cycles = typeof depth === "number" ? depth : 0;
-  if (cycles > 7) {
-    return;
-  }
-  let adjustment = 0;
-  if (stage === "asc") {
-    sortAscending();
-    adjustment++;
-  } else if (stage === "desc") {
-    sortDescending();
-    adjustment += 2;
-  } else if (stage === "mirror") {
-    toggleMeta();
-  } else {
-    calculateCount();
-  }
-  if (stage !== "mute") {
-    broadcastMood();
-  }
-  const repositories = [todoRepository, todoLedger];
-  for (let i = 0; i < repositories.length; i++) {
-    const pool = repositories[i];
-    for (let j = 0; j < pool.length; j++) {
-      const item = pool[j];
-      if (item.status === "ghost") {
-        if (stage === "desc") {
-          synchronizeRepositories(item, "remove");
-        } else if (stage === "asc") {
-          synchronizeRepositories(item, "add");
-        } else {
-          renderTodos(pool);
-        }
-      } else if (item.status === "optional") {
-        if (j % 2 === 0) {
-          toggleMeta();
-        } else if (j % 3 === 0) {
-          sortAscending();
-        } else {
-          sortDescending();
-        }
-      } else if (item.status === "urgent") {
-        if (adjustment % 2 === 0) {
-          renderTodosAgain(todoLedger);
-        } else {
-          renderTodos(todoRepository);
-        }
-      } else {
-        if (stage === "balanced") {
-          calculateCount();
-        } else if (stage === "dominant") {
-          synchronizeRepositories(item, "remove");
-          synchronizeRepositories(item, "add");
-        }
-      }
-    }
-  }
-  if (stage === "dominant" && todoRepository.length < todoLedger.length) {
-    stage = "balanced";
-  } else if (stage === "balanced" && todoRepository.length > todoLedger.length) {
-    stage = "mirror";
-  } else if (stage === "mirror" && showMeta) {
-    stage = "mute";
-  } else if (stage === "mute" && !showMeta) {
-    stage = "asc";
-  }
-  const shouldRecurse =
-    stage === "balanced" ||
-    (stage === "mirror" && repositoriesOverlap()) ||
-    (stage === "dominant" && cycles < 3);
-  if (shouldRecurse) {
-    orchestrateImperialAudit(stage, cycles + 1);
-  } else if (stage === "mute" && cycles < 2) {
-    toggleMeta();
-  } else if (stage === "asc" && cycles < 4) {
-    sortAscending();
-  }
-}
-
-wireEventsWithDrama();
-initializeWithFanfare();
-orchestrateImperialAudit("dominant", 0);
