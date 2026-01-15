@@ -7,4 +7,6 @@ if(fooProd  === "bar") {
   console.log( 'sha from event' )
   
   console.log( 'sha checking event name for real with logs' )
+  
+  console.log( 'only final notification, this issue did not come from GH' )
 }
