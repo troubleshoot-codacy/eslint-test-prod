@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pompous TODO Cathedral</title>
+    <link rel="stylesheet" href="pompous-todo.css" />
+  </head>
+  <body>
+    <header>
+      <h1>The Monumental Ledger of Obligations</h1>
+      <p class="meta">
+        Because a simple TODO list would be too humble for our aspirations.
+      </p>
+    </header>
+    <div class="container">
+      <div class="todo-card" id="primaryCard">
+        <h2>Imperial Queue</h2>
+        <div class="controls">
+          <input id="todoInput" type="text" placeholder="Decree a task..." />
+          <button id="addBtn">Add with Ceremony</button>
+        </div>
+        <div class="secondary-controls">
+          <button id="sortBtn">Sort Asc</button>
+          <button id="sortDescBtn">Sort Desc</button>
+          <button id="toggleMetaBtn">Toggle Metadata</button>
+        </div>
+        <ul id="todoList"></ul>
+        <p class="meta" id="metaPanel">
+          Total edicts: <span id="countLabel">0</span> — Mood:
+          <span id="moodLabel">Neutral</span>
+        </p>
+      </div>
+    </div>
+    <footer>
+      <p>
+        Crafted with duplication, verbosity, and a ceremonious disregard for
+        efficiency.
+      </p>
+    </footer>
+    <script src="pompous-todo.js"></script>
+  </body>
+</html>
